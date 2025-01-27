@@ -1,37 +1,66 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-const NavBar = () => {
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
+type NavBarNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
+
+interface NavItemProps {
+  icon: number;
+  label: string;
+  onPress?: () => void;
+}
+const NavItem: React.FC<NavItemProps> = ({icon, label, onPress}) => (
+  <TouchableOpacity style={styles.navItem} onPress={onPress}>
+    <Image source={icon} style={styles.navIcon} />
+    <Text style={styles.navText}>{label}</Text>
+  </TouchableOpacity>
+);
+
+const NavBar: React.FC = () => {
+  const navigation = useNavigation<NavBarNavigationProp>();
+
+  const navItems = [
+    {
+      icon: require('../../assets/Icons/home.png'),
+      label: 'Home',
+      onPress: () => navigation.navigate('Home'),
+    },
+    {
+      icon: require('../../assets/Icons/scan.png'),
+      label: 'Scan',
+      onPress: () => console.log('Scan pressed'),
+    },
+    {
+      icon: require('../../assets/Icons/chat.png'),
+      label: 'AI Doctor',
+      onPress: () => navigation.navigate('AIDoctor', {aiDoctor: '12'}),
+    },
+  ];
+
   return (
     <View style={styles.navBarContainer}>
-      <TouchableOpacity style={styles.navItem}>
-        <Image
-          source={require('../../assets/Icons/home.png')}
-          style={styles.navIcon}
+      {navItems.map((item, index) => (
+        <NavItem
+          key={index}
+          icon={item.icon}
+          label={item.label}
+          onPress={item.onPress}
         />
-        <Text style={styles.navText}>Home</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem}>
-        <Image
-          source={require('../../assets/Icons/scan.png')}
-          style={styles.navIcon}
-        />
-        <Text style={styles.navText}>Scan</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navItem}>
-        <Image
-          source={require('../../assets/Icons/chat.png')}
-          style={styles.navIcon}
-        />
-        <Text style={styles.navText}>AI Doctor</Text>
-      </TouchableOpacity>
+      ))}
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   navBarContainer: {
     height: 80,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
+    paddingHorizontal:15,
     alignItems: 'center',
   },
   navItem: {
@@ -44,11 +73,14 @@ const styles = StyleSheet.create({
   navIcon: {
     height: 30,
     width: 30,
+    resizeMode: 'contain',
   },
   navText: {
     fontSize: 15,
     textAlign: 'center',
     marginTop: 4,
+    color: '#333',
   },
 });
+
 export default NavBar;

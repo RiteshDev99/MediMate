@@ -71,10 +71,10 @@ const styles = StyleSheet.create({
     height: 50,
     width: 350,
     marginHorizontal: 22,
-    backgroundColor: '#fff',
+    borderRadius: 15,
+    backgroundColor: 'rgba(255,255,255,0.46)',
     flexDirection: 'row',
     justifyContent: 'center',
-    borderRadius: 15,
     alignItems: 'center',
   },
   inputBox: {
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     width: 280,
     borderRadius: 15,
     paddingHorizontal: 15,
+    color: '#282C3F',
     fontSize: 16,
-    backgroundColor: '#fff',
   },
   searchIcon: {
     height: 24,

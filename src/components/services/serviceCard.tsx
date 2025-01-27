@@ -11,8 +11,8 @@ const ServiceCard = (service: ServiceDto) => {
 };
 const styles = StyleSheet.create({
   serviceCard: {
-    height: 65,
-    width: 65,
+    height: 62,
+    width: 64,
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',

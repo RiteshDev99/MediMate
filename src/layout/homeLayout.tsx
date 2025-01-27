@@ -19,6 +19,7 @@ const HomeLayout = () => {
 const styles = StyleSheet.create({
   sectionContainer: {
     flex: 1,
+      backgroundColor: '#c3d9d9',
   },
 });
 export default HomeLayout;
