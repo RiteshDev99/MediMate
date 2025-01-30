@@ -22,6 +22,13 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photos to allow you to upload images to your profile.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>We need access to your camera to allow you to take photos and videos.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need access to your microphone to allow you to record audio.</string>
+
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

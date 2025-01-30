@@ -4,12 +4,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import HomeLayout from './layout/homeLayout';
 import AiDoctor from './layout/aiDoctor';
+import DetailsLayout from './layout/detailsLayout.tsx';
 
 export type RootStackParamList = {
   Home: undefined;
   AIDoctor: {
     aiDoctor: string;
   };
+  DetailsLayout: {capturedImage?: any};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,7 +28,7 @@ const App = () => {
             options={{
               headerShown: false,
               animation: 'slide_from_left',
-                navigationBarColor: '#c3d9d9',
+              navigationBarColor: '#c3d9d9',
             }}
           />
           <Stack.Screen
@@ -39,6 +41,18 @@ const App = () => {
                 backgroundColor: '#c3d9d9',
               },
               title: 'AI Doctor',
+            }}
+          />
+          <Stack.Screen
+            name="DetailsLayout"
+            component={DetailsLayout}
+            options={{
+              headerShown: true,
+              animation: 'slide_from_left',
+              headerStyle: {
+                backgroundColor: '#c3d9d9',
+              },
+              title: 'Details',
             }}
           />
         </Stack.Navigator>
