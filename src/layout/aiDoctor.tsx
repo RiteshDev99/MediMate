@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import Markdown from 'react-native-markdown-display';
+import {doctorPrompt} from '../Utils/doctorPrompt.ts';
 
 interface Message {
   role: 'user' | 'bot';
@@ -23,10 +24,9 @@ const AiDoctor = () => {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const API_URL =
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyD4KzeCL_smq_XoZxPdW6RHk_tzK9FoHFA';
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBkRZG5Jy1nF5ioYVhcRaoV9zfdnANi4BI';
 
   const handleSend = useCallback(async () => {
-    setInput('');
     const trimmedInput = input.trim();
     if (!trimmedInput || isLoading) {
       return;
@@ -34,8 +34,12 @@ const AiDoctor = () => {
 
     try {
       setIsLoading(true);
+      setInput('');
+
       const userMessage: Message = {role: 'user', content: trimmedInput};
-      setMessages(prev => [...prev, userMessage]);
+      const updatedMessages = [...messages, userMessage];
+      setMessages(updatedMessages);
+
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -44,24 +48,30 @@ const AiDoctor = () => {
         body: JSON.stringify({
           contents: [
             {
-              parts: [
-                {
-                  text: trimmedInput,
-                },
-              ],
+              role: 'user',
+              parts: [{text: trimmedInput}],
             },
           ],
+          systemInstruction: {
+            role: 'system',
+            parts: [{text: doctorPrompt}],
+          },
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
       const data = await response.json();
-      const botText: string =
+      console.log('API Response:', JSON.stringify(data, null, 2)); // Debugging
+
+      const botText =
         data.candidates?.[0]?.content?.parts?.[0]?.text ||
         'Unable to generate response';
       const botMessage: Message = {role: 'bot', content: botText};
 
       setMessages(prev => [...prev, botMessage]);
-      setInput('');
     } catch (error) {
       console.error('Error:', error);
       const errorMessage: Message = {
@@ -72,7 +82,7 @@ const AiDoctor = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [input, isLoading]);
+  }, [input, isLoading, messages]);
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -189,7 +199,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     paddingHorizontal: 10,
-
   },
   inputContainer: {
     height: 60,
