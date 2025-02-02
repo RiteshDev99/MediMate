@@ -1,10 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import {Image, StyleSheet, View, Text, ScrollView} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import {ImageOrVideo} from 'react-native-image-crop-picker';
 import {GoogleGenerativeAI} from '@google/generative-ai';
 import {scannerPrompt} from '../Utils/scannerPrompt.ts';
-
-const genAI = new GoogleGenerativeAI('AIzaSyBkRZG5Jy1nF5ioYVhcRaoV9zfdnANi4BI'); // Use environment variable
+const genAI = new GoogleGenerativeAI('AIzaSyADTI-UdHrjznig9bmbyTiFYrKmyU3PQ-Y');
 
 interface RouteParams {
   capturedImage: ImageOrVideo;
@@ -15,7 +22,6 @@ interface DetailsLayoutProps {
     params: RouteParams;
   };
 }
-
 function extractJson<T>(str: string): T | null {
   const match = str.match(/```json\s*([\s\S]*?)\s*```/);
   if (match) {
@@ -34,7 +40,6 @@ const DetailsLayout: React.FC<DetailsLayoutProps> = ({route}) => {
   const [geminiResponse, setGeminiResponse] = useState<MedicineInfo | null>(
     null,
   );
-
   useEffect(() => {
     const sendImageToGemini = async (image: ImageOrVideo) => {
       try {
@@ -54,10 +59,8 @@ const DetailsLayout: React.FC<DetailsLayoutProps> = ({route}) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch image: ${response.statusText}`);
         }
-
         const blob = await response.blob();
         const base64Data = await blobToBase64(blob);
-
         const result = await model.generateContent([
           {
             inlineData: {
@@ -67,14 +70,12 @@ const DetailsLayout: React.FC<DetailsLayoutProps> = ({route}) => {
           },
           'Analyze this medicine and respond in specified JSON format.',
         ]);
-
         const newResponse = extractJson<MedicineInfo>(result.response.text());
         if (newResponse != null) {
           setGeminiResponse(newResponse);
         }
       } catch (error) {
-        console.error('Error sending image to Gemini:', error);
-        // setGeminiResponse('Failed to get response from Gemini.' + error);
+        Alert.alert('something went wrong:');
       }
     };
 
@@ -82,7 +83,10 @@ const DetailsLayout: React.FC<DetailsLayoutProps> = ({route}) => {
       setCameraImage(route.params.capturedImage);
       sendImageToGemini(route.params.capturedImage);
     }
-  }, [route?.params?.capturedImage]);
+    if (geminiResponse?.message) {
+      Alert.alert('Invalid Image', geminiResponse.message);
+    }
+  }, [route?.params?.capturedImage, geminiResponse?.message]);
   const blobToBase64 = (blob: Blob): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -113,94 +117,93 @@ const DetailsLayout: React.FC<DetailsLayoutProps> = ({route}) => {
           <Image source={{uri: cameraImage?.path}} style={styles.bgImage} />
           <Image source={{uri: cameraImage?.path}} style={styles.picture} />
         </View>
-        <View style={styles.chatBox}>
-          <View style={styles.medicenDetails}>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Generic Name : </Text>
-              <Text style={styles.desc}>
-                {geminiResponse?.identification.generic_name}
-              </Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Brand Name : </Text>
-              <Text style={styles.desc}>
-                {geminiResponse?.identification.brand_names}
-              </Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>VisualClues : </Text>
-              <Text style={styles.desc}>
-                {geminiResponse?.identification.visual_clues}
-              </Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Generic : </Text>
-              <Text style={styles.desc}>
-                {geminiResponse?.cost_in_INR.generic}
-              </Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Branded : </Text>
-              <Text style={styles.desc}>
-                {geminiResponse?.cost_in_INR.branded}
-              </Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Dose : </Text>
-              <Text style={styles.desc}>{geminiResponse?.usage.dose}</Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Avoid_If : </Text>
-              <Text style={styles.desc}>{geminiResponse?.usage.avoid_if}</Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Max_Daily : </Text>
-              <Text style={styles.desc}>{geminiResponse?.usage.max_daily}</Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Serious_Risks : </Text>
-              <Text style={styles.desc}>
-                {geminiResponse?.safety.serious_risks}
-              </Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Name : </Text>
-              {geminiResponse?.alternatives.map(data => (
-                <Text style={styles.desc}>{data.name}</Text>
-              ))}
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Cost : </Text>
-              {geminiResponse?.alternatives.map(data => (
-                <Text style={styles.desc}>{data.cost}</Text>
-              ))}
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Use Case : </Text>
-              {geminiResponse?.alternatives.map(data => (
-                <Text style={styles.desc}>{data.use_case}</Text>
-              ))}
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Warning : </Text>
-              {geminiResponse?.alternatives.map(data => (
-                <Text style={styles.desc}>{data.warning}</Text>
-              ))}
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Interactions : </Text>
-              <Text style={styles.desc}>
-                {geminiResponse?.key_advice.interactions}
-              </Text>
-            </View>
-            <View style={styles.genericName}>
-              <Text style={styles.title}>Storage : </Text>
-              <Text style={styles.desc}>
-                {geminiResponse?.key_advice.storage}
-              </Text>
-            </View>
+        {geminiResponse ? (
+          <View style={styles.chatBox}>
+            {geminiResponse.message ? (
+              <>
+                <Text style={styles.errorMessage}>
+                  {geminiResponse.message}
+                </Text>
+              </>
+            ) : (
+              <View style={styles.medicenDetails}>
+                <View style={styles.genericName}>
+                  <Text style={styles.name}>
+                    {geminiResponse?.identification?.generic_name}
+                  </Text>
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Alternative Name</Text>
+                  {geminiResponse?.alternatives?.map(data => (
+                    <Text key={data.name} style={styles.desc}>
+                      {data.name}
+                    </Text>
+                  ))}
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Brand Name</Text>
+                  <Text style={styles.desc}>
+                    {geminiResponse?.identification?.brand_names}
+                  </Text>
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Generic Price</Text>
+                  <Text style={styles.desc}>
+                    {geminiResponse?.cost_in_INR?.generic}
+                  </Text>
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Branded Price</Text>
+                  <Text style={styles.desc}>
+                    {geminiResponse?.cost_in_INR?.branded}
+                  </Text>
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Doses</Text>
+                  <Text style={styles.desc}>{geminiResponse?.usage?.dose}</Text>
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Who Should Avoid</Text>
+                  <Text style={styles.desc}>
+                    {geminiResponse?.usage?.avoid_if}
+                  </Text>
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Serious Risks</Text>
+                  <Text style={styles.desc}>
+                    {geminiResponse?.safety?.serious_risks}
+                  </Text>
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Use Case</Text>
+                  {geminiResponse?.alternatives?.map(data => (
+                    <Text key={data.use_case} style={styles.desc}>
+                      {data.use_case}
+                    </Text>
+                  ))}
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Interactions</Text>
+                  <Text style={styles.desc}>
+                    {geminiResponse?.key_advice?.interactions}
+                  </Text>
+                </View>
+                <View style={styles.genericName}>
+                  <Text style={styles.title}>Storage</Text>
+                  <Text style={styles.desc}>
+                    {geminiResponse?.key_advice?.storage}
+                  </Text>
+                </View>
+              </View>
+            )}
           </View>
-        </View>
+        ) : (
+          <ActivityIndicator
+            size="large"
+            color="#000000"
+            style={styles.loader}
+          />
+        )}
       </View>
     </ScrollView>
   );
@@ -244,54 +247,71 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   medicenDetails: {
-    gap: 5,
+    gap: 25,
+    marginTop: 5,
+    marginHorizontal: 10,
   },
-  genericName: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
+  genericName: {},
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   desc: {
     fontSize: 14,
     fontWeight: 'semibold',
   },
+  name: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#2475B0',
+  },
+  loader: {
+    height: '100%',
+    width: '100%',
+  },
+  errorMessage: {
+    fontSize: 18,
+    color: 'red',
+    textAlign: 'center',
+  },
 });
 
 interface MedicineInfo {
+  error: string | null;
+  message: string | null;
   identification: {
-    generic_name: string;
-    brand_names: string[];
-    visual_clues: string;
-  };
-  purpose: string;
+    generic_name: string | null;
+    brand_names: string[] | null;
+    visual_clues: string | null;
+  } | null;
+  purpose: string | null;
   cost_in_INR: {
-    generic: string;
-    branded: string;
-  };
+    generic: string | null;
+    branded: string | null;
+  } | null;
   usage: {
-    dose: string;
-    max_daily: string;
-    avoid_if: string[];
-  };
+    dose: string | null;
+    max_daily: string | null;
+    avoid_if: string[] | null;
+  } | null;
   safety: {
-    common_side_effects: string[];
-    serious_risks: string[];
-    pregnancy_safety: string;
-  };
-  alternatives: {
-    name: string;
-    cost: string;
-    use_case: string;
-    warning: string;
-  }[];
+    common_side_effects: string[] | null;
+    serious_risks: string[] | null;
+    pregnancy_safety: string | null;
+  } | null;
+  alternatives:
+    | {
+        name: string | null;
+        cost: string | null;
+        use_case: string | null;
+        warning: string | null;
+      }[]
+    | null;
   key_advice: {
-    storage: string;
-    interactions: string;
-    otc_status: string;
-  };
+    storage: string | null;
+    interactions: string | null;
+    otc_status: string | null;
+  } | null;
 }
 
 export default DetailsLayout;

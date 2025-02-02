@@ -11,7 +11,7 @@ export type RootStackParamList = {
   AIDoctor: {
     aiDoctor: string;
   };
-  DetailsLayout: {capturedImage?: any};
+  DetailsLayout: {capturedImage?: any; title?: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -52,7 +52,7 @@ const App = () => {
               headerStyle: {
                 backgroundColor: '#c3d9d9',
               },
-              title: 'Details',
+              title: 'Medicine Details',
             }}
           />
         </Stack.Navigator>
