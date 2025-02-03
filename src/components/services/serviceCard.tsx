@@ -1,12 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ServiceDto} from '../../dto/serviceDto.ts';
 
 const ServiceCard = (service: ServiceDto) => {
   return (
+    <TouchableOpacity onPress={service.onPress}>
       <View style={[styles.serviceCard, {backgroundColor: service.bgColor}]}>
         <Image source={service.icon} style={styles.serviceImage} />
       </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({

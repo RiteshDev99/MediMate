@@ -2,7 +2,15 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {ServiceDto} from '../../dto/serviceDto.ts';
 import ServiceCard from './serviceCard.tsx';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
+type NavBarNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
 const Services = () => {
+  const navigation = useNavigation<NavBarNavigationProp>();
   const ServiceCardData: ServiceDto[] = [
     {
       id: 1,
@@ -16,8 +24,9 @@ const Services = () => {
     },
     {
       id: 3,
-      icon: require('../../assets/Icons/table.png'),
+      icon: require('../../assets/Icons/location.png'),
       bgColor: '#b2d3d9',
+      onPress: () => navigation.navigate('HospitalLayout', {hospital: '13'}),
     },
     {
       id: 4,
@@ -30,16 +39,21 @@ const Services = () => {
       <Text style={styles.titles}>Services</Text>
       <View style={styles.serviceCard}>
         {ServiceCardData.map(item => (
-          <ServiceCard key={item.id} icon={item.icon} bgColor={item.bgColor} />
+          <ServiceCard
+            key={item.id}
+            icon={item.icon}
+            bgColor={item.bgColor}
+            onPress={item.onPress}
+          />
         ))}
       </View>
       <View style={styles.bannerContainer}>
         <View style={styles.bannerCard}>
           <Image
-              source={{
-                uri: 'https://marketplace.canva.com/EAE_MUyIkCI/1/0/1600w/canva-modern-purple-medical-%28banner-%28landscape%29%29-i-4w5HbUAjc.jpg',
-              }}
-              style={styles.bannerImage}
+            source={{
+              uri: 'https://marketplace.canva.com/EAE_MUyIkCI/1/0/1600w/canva-modern-purple-medical-%28banner-%28landscape%29%29-i-4w5HbUAjc.jpg',
+            }}
+            style={styles.bannerImage}
           />
         </View>
       </View>

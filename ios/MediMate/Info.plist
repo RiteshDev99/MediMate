@@ -24,16 +24,20 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>We need access to your photos to allow you to upload images to your profile.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+    <string>We need access to your photo library to save captured images.</string>
     <key>NSCameraUsageDescription</key>
     <string>We need access to your camera to allow you to take photos and videos.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>We need access to your microphone to allow you to record audio.</string>
-
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your custom message to explain why the app needs access to location</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Your custom message</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>

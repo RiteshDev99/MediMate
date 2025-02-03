@@ -5,11 +5,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import HomeLayout from './layout/homeLayout';
 import AiDoctor from './layout/aiDoctor';
 import DetailsLayout from './layout/detailsLayout.tsx';
+import HospitalLayout from './layout/hospitalLayout.tsx';
 
 export type RootStackParamList = {
   Home: undefined;
   AIDoctor: {
     aiDoctor: string;
+  };
+    HospitalLayout: {
+    hospital: string;
   };
   DetailsLayout: {capturedImage?: any; title?: string};
 };
@@ -53,6 +57,18 @@ const App = () => {
                 backgroundColor: '#c3d9d9',
               },
               title: 'Medicine Details',
+            }}
+          />
+          <Stack.Screen
+            name="HospitalLayout"
+            component={HospitalLayout}
+            options={{
+              headerShown: true,
+              animation: 'slide_from_right',
+              headerStyle: {
+                backgroundColor: '#c3d9d9',
+              },
+              title: 'Hospitals Nearby',
             }}
           />
         </Stack.Navigator>

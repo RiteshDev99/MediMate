@@ -85,6 +85,7 @@ const DetailsLayout: React.FC<DetailsLayoutProps> = ({route}) => {
     }
     if (geminiResponse?.message) {
       Alert.alert('Invalid Image', geminiResponse.message);
+      console.log('Gemini response:', geminiResponse.message);
     }
   }, [route?.params?.capturedImage, geminiResponse?.message]);
   const blobToBase64 = (blob: Blob): Promise<string> => {
