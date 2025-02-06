@@ -17,19 +17,20 @@ const Services = () => {
       icon: require('../../assets/Icons/doctor.png'),
       bgColor: '#9dc8f2',
       label: 'AI Doctor',
+      onPress: () => navigation.navigate('AIDoctor', {aiDoctor: '12'}),
     },
     {
       id: 2,
-      icon: require('../../assets/Icons/medicine.png'),
-      bgColor: '#dfe6b1',
-      label: 'Medicine',
+      icon: require('../../assets/Icons/hospital-building.png'),
+      bgColor: '#b2d3d9',
+      label: 'Hospital',
+      onPress: () => navigation.navigate('HospitalLayout', {hospital: '13'}),
     },
     {
       id: 3,
-      icon: require('../../assets/Icons/location.png'),
-      bgColor: '#b2d3d9',
-      label: 'Location',
-      onPress: () => navigation.navigate('HospitalLayout', {hospital: '13'}),
+      icon: require('../../assets/Icons/medicine.png'),
+      bgColor: '#dfe6b1',
+      label: 'Medicine',
     },
     {
       id: 4,
@@ -40,35 +41,23 @@ const Services = () => {
   ];
   return (
     <View style={styles.sectionContainer}>
-      <Text style={styles.titles}>Services</Text>
-      <View style={styles.serviceCard}>
-        {ServiceCardData.map(item => (
-          <ServiceCard
-            key={item.id}
-            icon={item.icon}
-            bgColor={item.bgColor}
-            onPress={item.onPress}
-            label={item.label}
-          />
-        ))}
-      </View>
       <View style={styles.bannerContainer}>
         <View style={styles.bannerCard}>
           <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={true}
-            contentContainerStyle={styles.scrollContent}>
+              horizontal
+              showsHorizontalScrollIndicator={true}
+              contentContainerStyle={styles.scrollContent}>
             <Image
-              source={{
-                uri: 'https://marketplace.canva.com/EAE_MUyIkCI/1/0/1600w/canva-modern-purple-medical-%28banner-%28landscape%29%29-i-4w5HbUAjc.jpg',
-              }}
-              style={styles.bannerImage}
+                source={{
+                  uri: 'https://marketplace.canva.com/EAE_MUyIkCI/1/0/1600w/canva-modern-purple-medical-%28banner-%28landscape%29%29-i-4w5HbUAjc.jpg',
+                }}
+                style={styles.bannerImage}
             />
             <Image
-              source={{
-                uri: 'https://static.vecteezy.com/system/resources/previews/019/080/489/non_2x/healthcare-and-medical-service-doctor-banner-medical-health-social-media-cover-design-realistic-hospital-webinar-template-free-vector.jpg',
-              }}
-              style={styles.bannerImage}
+                source={{
+                  uri: 'https://static.vecteezy.com/system/resources/previews/019/080/489/non_2x/healthcare-and-medical-service-doctor-banner-medical-health-social-media-cover-design-realistic-hospital-webinar-template-free-vector.jpg',
+                }}
+                style={styles.bannerImage}
             />
             <Image
                 source={{
@@ -85,6 +74,18 @@ const Services = () => {
           </ScrollView>
         </View>
       </View>
+      <Text style={styles.titles}>Services</Text>
+      <View style={styles.serviceCard}>
+        {ServiceCardData.map(item => (
+          <ServiceCard
+            key={item.id}
+            icon={item.icon}
+            bgColor={item.bgColor}
+            onPress={item.onPress}
+            label={item.label}
+          />
+        ))}
+      </View>
     </View>
   );
 };
@@ -96,10 +97,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginHorizontal: 20,
+    marginTop:15,
   },
   serviceCard: {
     flexDirection: 'row',
-    marginTop: 18,
+    marginTop: 12,
     justifyContent: 'space-evenly',
   },
   bannerContainer: {

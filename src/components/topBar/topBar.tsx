@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
   userProfile: {
     height: 52,
     width: 52,
-    backgroundColor: 'red',
     overflow: 'hidden',
     borderRadius: 10,
   },

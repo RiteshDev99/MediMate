@@ -45,14 +45,14 @@ const NavBar: React.FC = () => {
       onPress: () => navigation.navigate('Home'),
     },
     {
-      icon: require('../../assets/Icons/scan.png'),
+      icon: require('../../assets/Icons/barcode-scanner.png'),
       label: 'Scan',
       onPress: handleOpenCamera,
     },
     {
-      icon: require('../../assets/Icons/chat.png'),
-      label: 'AI Doctor',
-      onPress: () => navigation.navigate('AIDoctor', {aiDoctor: '12'}),
+      icon: require('../../assets/Icons/setting.png'),
+      label: 'Setting',
+      onPress: () => navigation.navigate('SettingsLayout', {setting: '14'}),
     },
   ];
   return (
@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 15,
     alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor:'rgba(83,92,104,0.27)',
+    backgroundColor: '#cadede',
   },
   navItem: {
     height: 60,

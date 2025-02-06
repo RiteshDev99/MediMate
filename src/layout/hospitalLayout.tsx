@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    backgroundColor: 'rgba(255,255,255,0.15)',
+    backgroundColor: '#cadede',
   },
   location: {
     fontSize: 17,
