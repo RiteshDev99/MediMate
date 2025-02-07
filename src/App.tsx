@@ -46,7 +46,7 @@ const App = () => {
               headerShown: true,
               animation: 'slide_from_right',
               headerStyle: {
-                backgroundColor: '#c3d9d9',
+                backgroundColor: '#cadede',
               },
               title: 'AI Doctor',
             }}
@@ -58,7 +58,7 @@ const App = () => {
               headerShown: true,
               animation: 'slide_from_left',
               headerStyle: {
-                backgroundColor: '#c3d9d9',
+                backgroundColor: '#cadede',
               },
               title: 'Medicine Details',
             }}
@@ -70,7 +70,7 @@ const App = () => {
               headerShown: true,
               animation: 'slide_from_right',
               headerStyle: {
-                backgroundColor: '#c3d9d9',
+                backgroundColor: '#cadede',
               },
               title: 'Setting',
             }}
@@ -82,7 +82,7 @@ const App = () => {
               headerShown: true,
               animation: 'slide_from_right',
               headerStyle: {
-                backgroundColor: '#c3d9d9',
+                backgroundColor: '#cadede',
               },
               title: 'Hospitals Nearby',
             }}
@@ -96,7 +96,7 @@ const App = () => {
 const styles = StyleSheet.create({
   sectionContainer: {
     flex: 1,
-    backgroundColor: '#c3d9d9',
+    backgroundColor: '#cadede',
   },
 });
 

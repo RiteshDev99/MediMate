@@ -1,16 +1,43 @@
-import React from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {ServiceDto} from '../../dto/serviceDto.ts';
-import ServiceCard from './serviceCard.tsx';
+import React, {useEffect, useRef} from 'react';
+import {
+  Image,
+  Linking,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
+import ServiceCard from './serviceCard.tsx';
+import {ServiceDto} from '../../dto/serviceDto.ts';
+
 type NavBarNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   'Home'
 >;
+
 const Services = () => {
+  const scrollViewRef = useRef<ScrollView>(null);
   const navigation = useNavigation<NavBarNavigationProp>();
+
+  useEffect(() => {
+    let scrollX = 0;
+    const interval = setInterval(() => {
+      if (scrollViewRef.current) {
+        scrollViewRef.current.scrollTo({x: scrollX, animated: true});
+        scrollX += 380;
+        if (scrollX > 380 * 3) {
+          scrollX = 0;
+        }
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const ServiceCardData: ServiceDto[] = [
     {
       id: 1,
@@ -27,49 +54,59 @@ const Services = () => {
       onPress: () => navigation.navigate('HospitalLayout', {hospital: '13'}),
     },
     {
+      id: 4,
+      icon: require('../../assets/Icons/emergency.png'),
+      bgColor: '#ff9999',
+      label: 'Emergency',
+      onPress: () => OneTapCall(108),
+    },
+    {
       id: 3,
       icon: require('../../assets/Icons/medicine.png'),
       bgColor: '#dfe6b1',
       label: 'Medicine',
     },
-    {
-      id: 4,
-      icon: require('../../assets/Icons/coronavirus.png'),
-      bgColor: '#cfb8b9',
-      label: 'Germs',
-    },
   ];
+
+  const OneTapCall = (number: number) => {
+    let phoneNumber =
+      Platform.OS === 'android' ? `tel:${number}` : `telprompt:${number}`;
+    Linking.openURL(phoneNumber);
+  };
+
   return (
     <View style={styles.sectionContainer}>
       <View style={styles.bannerContainer}>
         <View style={styles.bannerCard}>
           <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={true}
-              contentContainerStyle={styles.scrollContent}>
+            ref={scrollViewRef}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContent}>
             <Image
-                source={{
-                  uri: 'https://marketplace.canva.com/EAE_MUyIkCI/1/0/1600w/canva-modern-purple-medical-%28banner-%28landscape%29%29-i-4w5HbUAjc.jpg',
-                }}
-                style={styles.bannerImage}
+              source={{
+                uri: 'https://static.vecteezy.com/system/resources/previews/042/971/984/non_2x/blue-doctor-wireframe-ai-medical-line-medical-treatment-illustration-use-ai-to-help-treat-concept-and-modern-on-health-background-health-insurance-vector.jpg',
+              }}
+              style={styles.bannerImage}
             />
             <Image
-                source={{
-                  uri: 'https://static.vecteezy.com/system/resources/previews/019/080/489/non_2x/healthcare-and-medical-service-doctor-banner-medical-health-social-media-cover-design-realistic-hospital-webinar-template-free-vector.jpg',
-                }}
-                style={styles.bannerImage}
+              source={{
+                uri: 'https://www.shutterstock.com/image-photo/hand-touch-button-emergency-app-600nw-2277525315.jpg',
+              }}
+              style={styles.bannerImage}
             />
             <Image
-                source={{
-                  uri: 'https://static.vecteezy.com/system/resources/previews/018/882/566/non_2x/healthcare-and-medical-service-doctor-banner-medical-health-social-media-cover-design-realistic-hospital-webinar-template-free-vector.jpg',
-                }}
-                style={styles.bannerImage}
+              source={{
+                uri: 'https://acldigital.com/wp-content/uploads/2024/10/RTLS-Asset-tracking-with-BLE-Blog-Banner.jpg',
+              }}
+              style={styles.bannerImage}
             />
             <Image
-                source={{
-                  uri: 'https://static.vecteezy.com/system/resources/previews/018/882/561/non_2x/healthcare-and-medical-service-doctor-banner-medical-health-social-media-cover-design-realistic-hospital-webinar-template-free-vector.jpg',
-                }}
-                style={styles.bannerImage}
+              source={{
+                uri: 'https://static.vecteezy.com/system/resources/previews/018/882/561/non_2x/healthcare-and-medical-service-doctor-banner-medical-health-social-media-cover-design-realistic-hospital-webinar-template-free-vector.jpg',
+              }}
+              style={styles.bannerImage}
             />
           </ScrollView>
         </View>
@@ -89,6 +126,7 @@ const Services = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   sectionContainer: {
     height: 320,
@@ -97,7 +135,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginHorizontal: 20,
-    marginTop:15,
+    marginTop: 15,
   },
   serviceCard: {
     flexDirection: 'row',
@@ -105,7 +143,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   bannerContainer: {
-    marginTop: 25,
+    marginTop: 8,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -113,20 +151,19 @@ const styles = StyleSheet.create({
   bannerCard: {
     height: 170,
     width: 360,
-    // backgroundColor: '#87a9ed',
     borderRadius: 18,
     overflow: 'hidden',
   },
   bannerImage: {
     height: 170,
     width: 360,
-    objectFit: 'cover',
+    resizeMode: 'cover',
     borderRadius: 18,
   },
   scrollContent: {
     flexDirection: 'row',
-    overflow: 'hidden',
-    gap:16,
+    gap: 16,
   },
 });
+
 export default Services;

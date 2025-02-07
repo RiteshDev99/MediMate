@@ -6,12 +6,12 @@ const TopBar = () => {
       <View style={styles.topBar}>
         <View style={styles.topBarText}>
           <Text style={styles.welcomeMessage}>👋🏻 Hello !</Text>
-          <Text style={styles.userName}>Jhone Doe..</Text>
+          <Text style={styles.userName}>Bugs Writer...</Text>
         </View>
         <View style={styles.userProfile}>
           <Image
             source={{
-              uri: 'https://t4.ftcdn.net/jpg/08/86/86/31/360_F_886863195_f20F46VBjpLwB1QhAYmAVcIMQUZ6JIWp.jpg',
+              uri: 'https://img.freepik.com/free-photo/handsome-surprised-man-with-stunned-expression-rounds-lips-opens-eyes-widely-can-t-believe-latest-sudden-news_273609-16780.jpg',
             }}
             style={styles.userProfile}
           />
@@ -61,8 +61,9 @@ const styles = StyleSheet.create({
     color: '#282C3F',
   },
   userProfile: {
-    height: 52,
-    width: 52,
+    height: 55,
+    width: 55,
+    objectFit: 'cover',
     overflow: 'hidden',
     borderRadius: 10,
   },

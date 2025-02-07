@@ -93,7 +93,7 @@ const HospitalLayout: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#c3d9d9',
+    backgroundColor: '#cadede',
   },
   currentLocation: {
     padding: 13,

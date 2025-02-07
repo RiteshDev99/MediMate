@@ -24,7 +24,7 @@ const AiDoctor = () => {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const API_URL =
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBkRZG5Jy1nF5ioYVhcRaoV9zfdnANi4BI';
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyA4rVvuafsdJRNCAS5KkRqk8rDqG8iP_4A';
 
   const handleSend = useCallback(async () => {
     const trimmedInput = input.trim();
@@ -159,7 +159,7 @@ const AiDoctor = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#c3d9d9',
+    backgroundColor: '#cadede',
   },
   chatContainer: {
     flex: 1,

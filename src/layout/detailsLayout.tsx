@@ -11,7 +11,7 @@ import {
 import {ImageOrVideo} from 'react-native-image-crop-picker';
 import {GoogleGenerativeAI} from '@google/generative-ai';
 import {scannerPrompt} from '../Utils/scannerPrompt.ts';
-const genAI = new GoogleGenerativeAI('AIzaSyADTI-UdHrjznig9bmbyTiFYrKmyU3PQ-Y');
+const genAI = new GoogleGenerativeAI('AIzaSyA4rVvuafsdJRNCAS5KkRqk8rDqG8iP_4A');
 
 interface RouteParams {
   capturedImage: ImageOrVideo;
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   sectionContainer: {
     flex: 1,
     flexGrow: 1,
-    backgroundColor: '#c3d9d9',
+    backgroundColor: '#cadede',
   },
   detailsContainer: {
     flex: 1,

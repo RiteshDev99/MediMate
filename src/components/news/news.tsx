@@ -6,7 +6,7 @@ import NewsCard from './newsCard.tsx';
 const News = () => {
   const [newsData, setNewsData] = useState<DataProps>();
   const URL =
-    'https://newsapi.org/v2/everything?q=tesla&from=2025-01-06&sortBy=publishedAt&apiKey=99e9331bd52a40b0b0dcde13ef9af4b4';
+    'https://newsapi.org/v2/top-headlines?category=health&pageSize=5&apiKey=15826378313d4e68806e75fd56ed682f';
 
   useEffect(() => {
     FetchNewsData();
@@ -24,7 +24,7 @@ const News = () => {
     <View style={styles.container}>
       <Text style={styles.titles}>News Articles</Text>
       {newsData ? (
-        newsData.articles?.map((item, index) => (
+          newsData.articles.map((item, index) => (
           <NewsCard key={index} NewsItem={item} />
         ))
       ) : (

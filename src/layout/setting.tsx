@@ -10,7 +10,7 @@ const Setting = () => {
 const styles = StyleSheet.create({
 settingContainer: {
     flex: 1,
-    backgroundColor: '#c3d9d9',
+    backgroundColor: '#cadede',
 },
 });
 export default Setting;

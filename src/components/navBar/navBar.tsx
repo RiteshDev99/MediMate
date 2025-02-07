@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   navIcon: {
-    height: 30,
-    width: 30,
+    height: 27,
+    width: 27,
     resizeMode: 'contain',
   },
   navText: {

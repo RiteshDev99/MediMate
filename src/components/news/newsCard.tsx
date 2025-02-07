@@ -21,8 +21,10 @@ const NewsCard = ({NewsItem}: {NewsItem: Article}) => {
 };
 const styles = StyleSheet.create({
   cardContainer: {
-    margin: 13,
-    backgroundColor: '#b2d3d9',
+    marginHorizontal: 12,
+    marginVertical: 8,
+    height: 125,
+    backgroundColor: '#bed1d7',
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
@@ -31,22 +33,24 @@ const styles = StyleSheet.create({
     elevation: 4,
     flexDirection: 'row',
     alignItems: 'center',
+    overflow: 'hidden',
   },
   userImage: {
-    height: 100,
-    width: 100,
+    height: '100%',
+    width: 110,
     marginRight: 18,
-    borderRadius: 5,
   },
   userItem: {
     height: 100,
     width: 260,
+    paddingRight:12,
     flexDirection: 'column',
     justifyContent: 'space-between',
     padding: 10,
   },
   title: {
     fontSize: 15,
+    marginRight:12,
     fontWeight: '600',
     color: '#2F363F',
     marginBottom: 4,
