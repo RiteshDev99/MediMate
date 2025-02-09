@@ -1,14 +1,16 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import DoctorCard from './doctorCard.tsx';
 import {DoctorDetailList} from '../../mockData/doctorDetails.ts';
 const DoctorConsult = () => {
   return (
-    <View style={styles.sectionContainer}>
-      {DoctorDetailList.map((data, index) => (
-        <DoctorCard key={index} doctorData={data} />
-      ))}
-    </View>
+    <ScrollView style={styles.sectionContainer}>
+      <View>
+        {DoctorDetailList.map((data, index) => (
+          <DoctorCard key={index} doctorData={data}/>
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({

@@ -8,6 +8,8 @@ import DetailsLayout from './layout/detailsLayout.tsx';
 import HospitalLayout from './layout/hospitalLayout.tsx';
 import Setting from './layout/setting.tsx';
 import DoctorConsult from './layout/doctorConsult/doctorConsult.tsx';
+import DoctorDetailScreen from './layout/doctorConsult/doctorDetailScreen.tsx';
+import {DoctorDetailsProps} from './mockData/doctorDetails.ts';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -23,6 +25,9 @@ export type RootStackParamList = {
   };
   DoctorConsultLayout: {
     doctor: string;
+  };
+  DoctorDetailLayout: {
+    doctorDetails: DoctorDetailsProps;
   };
 };
 
@@ -101,6 +106,18 @@ const App = () => {
                 backgroundColor: '#cadede',
               },
               title: 'Doctor Consult',
+            }}
+          />
+          <Stack.Screen
+            name="DoctorDetailLayout"
+            component={DoctorDetailScreen}
+            options={{
+              headerShown: true,
+              animation: 'slide_from_right',
+              headerStyle: {
+                backgroundColor: '#cadede',
+              },
+              title: 'Doctor Details',
             }}
           />
         </Stack.Navigator>

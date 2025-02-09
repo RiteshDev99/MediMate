@@ -1,7 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {ServiceDto} from '../../dto/serviceDto.ts';
-
 const ServiceCard = (service: ServiceDto) => {
   return (
     <TouchableOpacity onPress={service.onPress} style={styles.mainContainer}>
