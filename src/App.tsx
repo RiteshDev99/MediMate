@@ -7,7 +7,7 @@ import AiDoctor from './layout/aiDoctor';
 import DetailsLayout from './layout/detailsLayout.tsx';
 import HospitalLayout from './layout/hospitalLayout.tsx';
 import Setting from './layout/setting.tsx';
-import DoctorConsult from './layout/doctorConsult.tsx';
+import DoctorConsult from './layout/doctorConsult/doctorConsult.tsx';
 
 export type RootStackParamList = {
   Home: undefined;
