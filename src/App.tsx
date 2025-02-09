@@ -7,6 +7,7 @@ import AiDoctor from './layout/aiDoctor';
 import DetailsLayout from './layout/detailsLayout.tsx';
 import HospitalLayout from './layout/hospitalLayout.tsx';
 import Setting from './layout/setting.tsx';
+import DoctorConsult from './layout/doctorConsult.tsx';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -19,6 +20,9 @@ export type RootStackParamList = {
   DetailsLayout: {capturedImage?: any; title?: string};
   SettingsLayout: {
     setting: string;
+  };
+  DoctorConsultLayout: {
+    doctor: string;
   };
 };
 
@@ -85,6 +89,18 @@ const App = () => {
                 backgroundColor: '#cadede',
               },
               title: 'Hospitals Nearby',
+            }}
+          />
+          <Stack.Screen
+            name="DoctorConsultLayout"
+            component={DoctorConsult}
+            options={{
+              headerShown: true,
+              animation: 'slide_from_right',
+              headerStyle: {
+                backgroundColor: '#cadede',
+              },
+              title: 'Doctor Consult',
             }}
           />
         </Stack.Navigator>

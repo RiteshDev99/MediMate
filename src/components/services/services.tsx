@@ -41,7 +41,7 @@ const Services = () => {
   const ServiceCardData: ServiceDto[] = [
     {
       id: 1,
-      icon: require('../../assets/Icons/doctor.png'),
+      icon: require('../../assets/Icons/chatbot.png'),
       bgColor: '#9dc8f2',
       label: 'AI Doctor',
       onPress: () => navigation.navigate('AIDoctor', {aiDoctor: '12'}),
@@ -62,9 +62,10 @@ const Services = () => {
     },
     {
       id: 3,
-      icon: require('../../assets/Icons/medicine.png'),
-      bgColor: '#dfe6b1',
-      label: 'Medicine',
+      icon: require('../../assets/Icons/doctor.png'),
+      bgColor: 'rgba(106,137,204,0.58)',
+      label: 'Consult ',
+      onPress: () => navigation.navigate('DoctorConsultLayout', {doctor: '14'}),
     },
   ];
 
