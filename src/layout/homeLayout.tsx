@@ -10,7 +10,7 @@ const HomeLayout = () => {
       <ScrollView>
         <TopBar />
         <Services />
-          <News />
+        <News />
       </ScrollView>
       <NavBar />
     </View>

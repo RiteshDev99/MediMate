@@ -5,12 +5,13 @@ import {
   View,
   Alert,
   Image,
-  ActivityIndicator,
+  ActivityIndicator, Platform, PermissionsAndroid,
 } from 'react-native';
 import Geolocation, {
   GeolocationError,
   GeolocationResponse,
 } from '@react-native-community/geolocation';
+import MapView from 'react-native-maps';
 
 const HospitalLayout: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState('');
@@ -62,22 +63,34 @@ const HospitalLayout: React.FC = () => {
     }
   };
 
+
   return (
     <>
       <View style={styles.container}>
+        <MapView
+          style={styles.container}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
         {currentLocation ? (
-          <View style={styles.currentLocation}>
-            <Image
-              source={require('../assets/Icons/location.png')}
-              style={styles.locationIcon}
-            />
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.location}>
-              {currentLocation}
-            </Text>
-          </View>
+          <>
+            <View style={styles.currentLocation}>
+              <Image
+                source={require('../assets/Icons/location.png')}
+                style={styles.locationIcon}
+              />
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.location}>
+                {currentLocation}
+              </Text>
+            </View>
+          </>
         ) : (
           <ActivityIndicator
             size="large"
