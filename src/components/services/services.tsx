@@ -105,7 +105,7 @@ const Services = () => {
             />
             <Image
               source={{
-                uri: 'https://static.vecteezy.com/system/resources/previews/018/882/561/non_2x/healthcare-and-medical-service-doctor-banner-medical-health-social-media-cover-design-realistic-hospital-webinar-template-free-vector.jpg',
+                uri: 'https://www.moneymax.ph/hs-fs/hubfs/Online_Medical_Consultation_Options.png?width=680&name=Online_Medical_Consultation_Options.png',
               }}
               style={styles.bannerImage}
             />
