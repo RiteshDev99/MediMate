@@ -65,7 +65,11 @@ const Services = () => {
       icon: require('../../assets/Icons/doctor.png'),
       bgColor: 'rgba(106,137,204,0.58)',
       label: 'Consult ',
-      onPress: () => navigation.navigate('DoctorConsultLayout', {doctor: '14'}),
+      onPress: () =>
+        navigation.navigate('DoctorConsultLayout', {
+          doctor: '14',
+          focus: false,
+        }),
     },
   ];
 

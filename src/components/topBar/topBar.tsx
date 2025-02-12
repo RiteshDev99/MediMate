@@ -1,6 +1,22 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App.tsx';
+import {useNavigation} from '@react-navigation/native';
+
+type NavBarNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
 const TopBar = () => {
+  const navigation = useNavigation<NavBarNavigationProp>();
   return (
     <View style={styles.sectionContainer}>
       <View style={styles.topBar}>
@@ -8,30 +24,44 @@ const TopBar = () => {
           <Text style={styles.welcomeMessage}>👋🏻 Hello !</Text>
           <Text style={styles.userName}>Bugs Writer...</Text>
         </View>
-        <View style={styles.userProfile}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('UserProfileLayout', {userProfile: '10'})
+          }>
+          <View style={styles.userProfile}>
+            <Image
+              source={{
+                uri: 'https://img.freepik.com/free-photo/handsome-surprised-man-with-stunned-expression-rounds-lips-opens-eyes-widely-can-t-believe-latest-sudden-news_273609-16780.jpg',
+              }}
+              style={styles.userProfile}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('DoctorConsultLayout', {doctor: '12', focus: true})
+        }
+        activeOpacity={1}
+      >
+        <View style={styles.inputContainer}>
           <Image
-            source={{
-              uri: 'https://img.freepik.com/free-photo/handsome-surprised-man-with-stunned-expression-rounds-lips-opens-eyes-widely-can-t-believe-latest-sudden-news_273609-16780.jpg',
-            }}
-            style={styles.userProfile}
+            source={require('../../assets/Icons/search.png')}
+            style={styles.searchIcon}
+          />
+          <TextInput
+            style={styles.inputBox}
+            placeholder="Search here.."
+            placeholderTextColor="#282C3F"
+            editable={false}
+            pointerEvents="none"
+          />
+          <Image
+            source={require('../../assets/Icons/filter.png')}
+            style={styles.filterIcon}
           />
         </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <Image
-          source={require('../../assets/Icons/search.png')}
-          style={styles.searchIcon}
-        />
-        <TextInput
-          style={styles.inputBox}
-          placeholder="Search here.."
-          placeholderTextColor="#282C3F"
-        />
-        <Image
-          source={require('../../assets/Icons/filter.png')}
-          style={styles.filterIcon}
-        />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

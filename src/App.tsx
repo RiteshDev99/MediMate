@@ -10,9 +10,13 @@ import Setting from './layout/setting.tsx';
 import DoctorConsult from './layout/doctorConsult/doctorConsult.tsx';
 import DoctorDetailScreen from './layout/doctorConsult/doctorDetailScreen.tsx';
 import {DoctorDetailsProps} from './mockData/doctorDetails.ts';
+import UserProfile from './layout/userProfile.tsx';
 
 export type RootStackParamList = {
   Home: undefined;
+  UserProfileLayout: {
+    userProfile: string;
+  };
   AIDoctor: {
     aiDoctor: string;
   };
@@ -25,6 +29,7 @@ export type RootStackParamList = {
   };
   DoctorConsultLayout: {
     doctor: string;
+    focus: boolean;
   };
   DoctorDetailLayout: {
     doctorDetails: DoctorDetailsProps;
@@ -118,6 +123,18 @@ const App = () => {
                 backgroundColor: '#cadede',
               },
               title: 'Doctor Details',
+            }}
+          />
+          <Stack.Screen
+            name="UserProfileLayout"
+            component={UserProfile}
+            options={{
+              headerShown: true,
+              animation: 'slide_from_right',
+              headerStyle: {
+                backgroundColor: '#cadede',
+              },
+              title: 'User Profile',
             }}
           />
         </Stack.Navigator>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-const Setting = () => {
+const UserProfile = () => {
   return (
     <View style={styles.settingContainer}>
       <Text style={styles.text}>Coming Soon </Text>
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 35,
     fontWeight: 'bold',
-      color: '#0A3D62',
-      opacity: 0.5,
+    color: '#0A3D62',
+    opacity: 0.5,
   },
 });
-export default Setting;
+export default UserProfile;

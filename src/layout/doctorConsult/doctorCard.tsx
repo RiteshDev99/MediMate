@@ -11,6 +11,7 @@ type NavBarNavigationProp = NativeStackNavigationProp<
 >;
 
 const DoctorCard = ({ doctorData }: { doctorData: DoctorDetailsProps }) => {
+
   const navigation = useNavigation<NavBarNavigationProp>();
 
   return (

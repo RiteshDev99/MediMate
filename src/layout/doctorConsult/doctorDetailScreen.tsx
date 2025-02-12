@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native';
 import DoctorDetailsCard from './doctorDetailCard.tsx';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {RootStackParamList} from '../../App.tsx';
+
 type DoctorDetailRouteProp = RouteProp<
   RootStackParamList,
   'DoctorDetailLayout'
