@@ -148,10 +148,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   bannerContainer: {
+    flex: 1,
     marginTop: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
   bannerCard: {
     height: 170,

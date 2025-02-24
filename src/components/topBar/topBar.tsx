@@ -40,26 +40,30 @@ const TopBar = () => {
       </View>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('DoctorConsultLayout', {doctor: '12', focus: true})
+          navigation.navigate('DoctorConsultLayout', {
+            doctor: '12',
+            focus: true,
+          })
         }
-        activeOpacity={1}
-      >
-        <View style={styles.inputContainer}>
-          <Image
-            source={require('../../assets/Icons/search.png')}
-            style={styles.searchIcon}
-          />
-          <TextInput
-            style={styles.inputBox}
-            placeholder="Search here.."
-            placeholderTextColor="#282C3F"
-            editable={false}
-            pointerEvents="none"
-          />
-          <Image
-            source={require('../../assets/Icons/filter.png')}
-            style={styles.filterIcon}
-          />
+        activeOpacity={1}>
+        <View style={styles.inputSection}>
+          <View style={styles.inputContainer}>
+            <Image
+              source={require('../../assets/Icons/search.png')}
+              style={styles.searchIcon}
+            />
+            <TextInput
+              style={styles.inputBox}
+              placeholder="Search here.."
+              placeholderTextColor="#282C3F"
+              editable={false}
+              pointerEvents="none"
+            />
+            <Image
+              source={require('../../assets/Icons/filter.png')}
+              style={styles.filterIcon}
+            />
+          </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -97,10 +101,15 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 10,
   },
+  inputSection: {
+    width: '100%',
+    height: 'auto',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
   inputContainer: {
     height: 50,
     width: 350,
-    marginHorizontal: 22,
     borderRadius: 15,
     backgroundColor: 'rgba(255,255,255,0.46)',
     flexDirection: 'row',
@@ -123,5 +132,6 @@ const styles = StyleSheet.create({
     height: 27,
     width: 27,
   },
+
 });
 export default TopBar;

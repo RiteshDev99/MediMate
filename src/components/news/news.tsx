@@ -23,13 +23,19 @@ const News = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.titles}>News Articles</Text>
-      {newsData ? (
+      <View style={styles.card}>
+        {newsData ? (
           newsData.articles.map((item, index) => (
-          <NewsCard key={index} NewsItem={item} />
-        ))
-      ) : (
-        <ActivityIndicator size="large" color="#000000" style={styles.loader} />
-      )}
+            <NewsCard key={index} NewsItem={item} />
+          ))
+        ) : (
+          <ActivityIndicator
+            size="large"
+            color="#000000"
+            style={styles.loader}
+          />
+        )}
+      </View>
     </View>
   );
 };
@@ -37,7 +43,6 @@ const News = () => {
 const styles = StyleSheet.create({
   container: {
     height: 'auto',
-    minHeight: 200,
     width: '100%',
     marginTop: 25,
   },
@@ -52,6 +57,12 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
+  },
+  card: {
+    height: 'auto',
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 });
 
