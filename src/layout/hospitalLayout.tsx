@@ -48,7 +48,11 @@ const HospitalLayout: React.FC = () => {
       }
     };
 
-    const fetchReverseGeocode = async (lat: number, lng: number) => {
+    const fetchReverseGeocode = async (
+      lat: number,
+      lng: number,
+      signal?: AbortSignal,
+    ) => {
       try {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`,
@@ -59,6 +63,11 @@ const HospitalLayout: React.FC = () => {
             signal,
           },
         );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         return await response.json();
       } catch (error: any) {
         if (error.name !== 'AbortError') {
